@@ -11,8 +11,8 @@ pipeline {
     stages {
         stage('Set AWS Credentials') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
+                withCredentials([[ 
+                    $class: 'AmazonWebServicesCredentialsBinding', 
                     credentialsId: 'aws-creds' 
                 ]]) {
                     sh '''
@@ -31,8 +31,8 @@ pipeline {
 
         stage('Initialize Terraform') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
+                withCredentials([[ 
+                    $class: 'AmazonWebServicesCredentialsBinding', 
                     credentialsId: 'aws-creds'
                 ]]) {
                     sh '''
@@ -46,8 +46,8 @@ pipeline {
 
         stage('Plan Terraform') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
+                withCredentials([[ 
+                    $class: 'AmazonWebServicesCredentialsBinding', 
                     credentialsId: 'aws-creds'
                 ]]) {
                     sh '''
@@ -59,19 +59,19 @@ pipeline {
             }
         }
 
-        stage ('Move to Artifactory') {
-                    steps {
-                        jf '-v' 
-                        jf 'c show'
-                        jf 'rt ping'
-                        jf 'rt u ./*.tf test-terraform-generic-local/'
-                    }
-                } 
+        stage('Move to Artifactory') {
+            steps {
+                jf '-v' 
+                jf 'c show'
+                jf 'rt ping'
+                jf 'rt u ./*.tf test-terraform-generic-local/'
+            }
+        }
 
         stage('Apply Terraform') {
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
+                withCredentials([[ 
+                    $class: 'AmazonWebServicesCredentialsBinding', 
                     credentialsId: 'aws-creds'
                 ]]) {
                     sh '''
@@ -86,8 +86,8 @@ pipeline {
         stage('Destroy Infrastructure Prompt') {
             input message: "Approve Terraform Destroy?", ok: "Destroy"
             steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
+                withCredentials([[ 
+                    $class: 'AmazonWebServicesCredentialsBinding', 
                     credentialsId: 'aws-creds'
                 ]]) {
                     sh '''
@@ -98,10 +98,7 @@ pipeline {
                 }
             }
         }
-    }
-    
-
-    
+    }  // <-- Close the stages block
 
     post {
         success {
