@@ -82,6 +82,22 @@ pipeline {
                 }
             }
         }
+
+        stage('Destroy Infrastructure Prompt') {
+            input message: "Approve Terraform Destroy?", ok: "Destroy"
+            steps {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-creds'
+                ]]) {
+                    sh '''
+                    export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                    export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                    terraform destroy -auto-approve tfplan
+                    '''
+                }
+            }
+        }
     }
 
     
