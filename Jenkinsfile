@@ -64,7 +64,7 @@ pipeline {
                         jf '-v' 
                         jf 'c show'
                         jf 'rt ping'
-                        jf 'rt u ./*.tf test-terraform/'
+                        jf 'rt u ./*.tf test-terraform-generic-local/'
                     }
                 } 
 
