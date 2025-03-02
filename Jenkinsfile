@@ -1,11 +1,13 @@
 pipeline {
     agent any
     tools {
-        jfrog 'jfrog-repo-cli'
+        jfrog 'jfrog-1'
+    }
    
     environment {
         AWS_REGION = 'us-east-1' 
     }
+
     stages {
         stage('Set AWS Credentials') {
             steps {
@@ -20,14 +22,13 @@ pipeline {
                 }
             }
         }
+
         stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/aaron-dm-mcdonald/jenkins-artifactory-integration.git' 
             }
         }
 
-        
-    
         stage('Initialize Terraform') {
             steps {
                 withCredentials([[
@@ -57,6 +58,16 @@ pipeline {
                 }
             }
         }
+
+        stage ('Move to Artifactory') {
+                    steps {
+                        jf '-v' 
+                        jf 'c show'
+                        jf 'rt ping'
+                        jf 'rt u ./*.tf test-terraform/'
+                    }
+                } 
+
         stage('Apply Terraform') {
             steps {
                 withCredentials([[
@@ -73,14 +84,7 @@ pipeline {
         }
     }
 
-    stage ('Move to Artifactory') {
-            steps {
-                jf '-v' 
-                jf 'c show'
-                jf 'rt ping'
-                jf 'rt u ./*.tf test-terraform/'
-            }
-        } 
+    
 
 
     post {
