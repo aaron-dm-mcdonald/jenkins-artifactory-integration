@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Thailand!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+            margin-top: 50px;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;  /* Space between images */
+            flex-wrap: wrap;  /* Wrap images if the screen size is too small */
+            padding: 20px;
+        }
+        .image-container img {
+            max-width: 100%;    /* Allow images to be responsive */
+            height: auto;       /* Maintain aspect ratio */
+            width: 30%;         /* Make the images smaller and fit on the same line */
+            border: 5px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Thailand!</h1>
+    <div class="image-container">
+        <img src="images/thai1.jpg" alt="Beautiful Thailand 1">
+        <img src="images/thai2.jpg" alt="Beautiful Thailand 2">
+        <img src="images/thai3.jpg" alt="Beautiful Thailand 3">
+    </div>
+</body>
+</html>
