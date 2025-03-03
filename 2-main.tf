@@ -80,10 +80,18 @@ resource "aws_s3_bucket_policy" "website" {
   depends_on = [ aws_s3_bucket_public_access_block.website ]
 }
 
+output "format-1" {
+  value = " "
+}
+
 output "website_url" {
   value = "http://${aws_s3_bucket_website_configuration.website.website_endpoint}"
 }
 
 output "bucket_a_index_endpoint" {
   value = "https://${aws_s3_bucket.website.bucket}.s3.us-east-1.amazonaws.com/index.html"
+}
+
+output "format-2" {
+  value = " "
 }
